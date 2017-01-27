@@ -1,0 +1,22 @@
+{
+  "name": "privateaser",
+  "authors": [
+    "Nicolas Mura <nicolas.mura@gmail.com>"
+  ],
+  "description": "Test full-stack Privateaser - suivi de positions Google",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "html5shiv": "latest",
+    "respond.min": "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"
+  }
+}

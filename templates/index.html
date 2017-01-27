@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Title Page</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='libs/bootstrap/dist/css/bootstrap.min.css') }}">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="libs/html5shiv/html5shiv.min.js"></script>
+            <script src="libs/respond.min/index.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h1>Suivi de positions Google</h1>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+            <h2>Paramètres</h2>
+            <form class="form-vertical" action="{{ url_for('google_position') }}" method="POST" role="form">
+                {{ form.csrf_token }}
+                <!-- <legend>Site web &amp; mots-clés</legend> -->
+                <div class="form-group">
+                    {{ form.website.label }}
+                    {{ form.website(class_='form-control') }}
+                    <!-- <label for="website">Site web</label> -->
+                    <!-- <input type="text" class="form-control" id="website" value="www.privateaser.com"> -->
+                </div>
+                <div class="form-group">
+                    {{ form.keywords.label }}
+                    {{ form.keywords(class_='form-control') }}
+                    <!-- <label for="keywords">Mots-clés</label>
+                    <input type="text" class="form-control" id="keywords" placeholder="placehoder"> -->
+                </div>
+                <div class="form-group text-left"">
+                    {{ form.max_page.label(class_='col-xs-10 col-sm-10 col-md-10 col-lg-10', id='max_page_label') }}
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="max_page_input">
+                        {{ form.max_page(class_='form-control') }}
+                    </div>
+                    <!-- <label for="max-page" class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="padding-left: 0px;">Descendre jusqu'à la page</label> -->
+                    <!-- <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-right: 0px;">
+                        <input type="number" min="1" class="form-control" id="max-page" value="1">
+                    </div> -->
+                </div>
+                <button type="submit" class="btn btn-success">Lancer le crawl</button>
+            </form>
+        </div>
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+            <h2>Résultats</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mots-clés</th>
+                            <td>URL</td>
+                            <td>Position</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Réservation bar paris</td>
+                            <td>https://www.privateaser.com</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>où fêter son anniversaire</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>macbridge's pub</td>
+                            <td>https://www.privateaser.com/lieu/91-mc-bridge</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>le matignon club</td>
+                            <td>https://www.privateaser.com/lieu/927-le-matignon-club</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>l'héclice bar</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src="{{ url_for('static', filename='libs/jquery/dist/jquery.min.js') }}"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="{{ url_for('static', filename='libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    </body>
+</html>
