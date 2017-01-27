@@ -1,15 +1,26 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template, request
 from forms import SeoAnalyserForm
+import requests
+from bs4 import BeautifulSoup
 app = Flask(__name__)
 app.config.from_object('config')
 
 
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=['GET', 'POST'])
 def google_position():
-    form = SeoAnalyserForm()
-    if form.validate():
-        print(form)
-    return render_template('index.html', form=form)
+    error = None
+    form = SeoAnalyserForm(request.form)
+    if request.method == 'POST':
+        if form.validate():
+            keywords = request.form['keywords'].replace(' ', '+')
+            requested_url = 'https://www.google.fr/search?q=' + keywords
+            html_response = requests.get(requested_url)
+            print(html_response.status_code)
+
+            data = html_response.content
+            bsObj = BeautifulSoup(data, "html.parser")
+            # print(bsObj.prettify())
+
+    return render_template('index.html', form=form, error=error)

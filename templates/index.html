@@ -28,41 +28,52 @@
             <h2>Paramètres</h2>
             <form class="form-vertical" action="{{ url_for('google_position') }}" method="POST" role="form">
                 {{ form.csrf_token }}
-                <!-- <legend>Site web &amp; mots-clés</legend> -->
                 <div class="form-group">
                     {{ form.website.label }}
+                    {% if form.website.errors %}
+                        <div class="bg-danger">{% for error in form.website.errors %}<div>{{ error }}</div>{% endfor %}</div>
+                    {% endif %}
                     {{ form.website(class_='form-control') }}
-                    <!-- <label for="website">Site web</label> -->
-                    <!-- <input type="text" class="form-control" id="website" value="www.privateaser.com"> -->
                 </div>
                 <div class="form-group">
                     {{ form.keywords.label }}
+                    {% if form.keywords.errors %}
+                        <div class="bg-danger">{% for error in form.keywords.errors %}<div>{{ error }}</div>{% endfor %}</div>
+                    {% endif %}
                     {{ form.keywords(class_='form-control') }}
-                    <!-- <label for="keywords">Mots-clés</label>
-                    <input type="text" class="form-control" id="keywords" placeholder="placehoder"> -->
                 </div>
-                <div class="form-group text-left"">
+                <div class="row">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        {{ form.max_page.label }}
+                        {% if form.max_page.errors %}
+                            <div class="bg-danger">{% for error in form.max_page.errors %}<div>{{ error }}</div>{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        {{ form.max_page(class_='form-control', type='number', min='1') }}
+                    </div>
+                </div>
+                <!-- <div class="form-group text-left"">
                     {{ form.max_page.label(class_='col-xs-10 col-sm-10 col-md-10 col-lg-10', id='max_page_label') }}
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="max_page_input">
-                        {{ form.max_page(class_='form-control') }}
+                        {{ form.max_page(class_='form-control', type='number', min='1') }}
                     </div>
-                    <!-- <label for="max-page" class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="padding-left: 0px;">Descendre jusqu'à la page</label> -->
-                    <!-- <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-right: 0px;">
-                        <input type="number" min="1" class="form-control" id="max-page" value="1">
-                    </div> -->
                 </div>
+                {% if form.max_page.errors %}
+                    <div class="bg-danger">{% for error in form.max_page.errors %}<div>{{ error }}</div>{% endfor %}</div>
+                {% endif %} -->
                 <button type="submit" class="btn btn-success">Lancer le crawl</button>
             </form>
         </div>
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
-            <h2>Résultats</h2>
+            <h2>Résultats (static)</h2>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Mots-clés</th>
-                            <td>URL</td>
-                            <td>Position</td>
+                            <th>URL</th>
+                            <th>Position</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,12 +104,10 @@
                         </tr>
                     </tbody>
                 </table>
-
-
             </div>
         </div>
 
-        <!-- jQuery -->
+        <!-- jQuery
         <script src="{{ url_for('static', filename='libs/jquery/dist/jquery.min.js') }}"></script>
         <!-- Bootstrap JavaScript -->
         <script src="{{ url_for('static', filename='libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>

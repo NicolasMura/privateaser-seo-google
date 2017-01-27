@@ -8,7 +8,7 @@ class SeoAnalyserForm(Form):
     website = StringField(
         u'Site web',
         validators=[Required(), URL(message='Adresse invalide')],
-        default='www.privateaser.com'
+        default='http://www.privateaser.com'
     )
     keywords = StringField(
         u'Mots-clés',
@@ -16,5 +16,6 @@ class SeoAnalyserForm(Form):
     )
     max_page = IntegerField(
         u'Descendre jusqu\'à la page',
+        validators=[Required()],
         default=1
     )
