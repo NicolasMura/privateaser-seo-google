@@ -10,6 +10,7 @@ app.config.from_object('config')
 
 @app.route('/', methods=['GET', 'POST'])
 def google_position():
+    bsObj_test = None
     error = None
     form = SeoAnalyserForm(request.form)
     if request.method == 'POST':
@@ -21,6 +22,11 @@ def google_position():
 
             data = html_response.content
             bsObj = BeautifulSoup(data, "html.parser")
+            bsObj_test = bsObj.prettify()
             # print(bsObj.prettify())
+            test = bsObj.find('cite', {'class': '_Rm'})
+            print(test)
 
-    return render_template('index.html', form=form, error=error)
+    return render_template(
+        'index.html',
+        form=form, error=error, bsObj_test=bsObj_test)

@@ -14,5 +14,7 @@ Inside a virtual environment, launch:
 
 .. code-block:: shell
 
+    bower install
     pip install -r requirements.txt
+    export FLASK_APP=app.py
     flask run
