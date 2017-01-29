@@ -10,23 +10,50 @@ app.config.from_object('config')
 
 @app.route('/', methods=['GET', 'POST'])
 def google_position():
-    bsObj_test = None
+    itemList = []
+    itemListDebug = []
     error = None
     form = SeoAnalyserForm(request.form)
     if request.method == 'POST':
         if form.validate():
+            # Get html response
             keywords = request.form['keywords'].replace(' ', '+')
             requested_url = 'https://www.google.fr/search?q=' + keywords
             html_response = requests.get(requested_url)
             print(html_response.status_code)
+            html_doc = html_response.content
 
-            data = html_response.content
-            bsObj = BeautifulSoup(data, "html.parser")
-            bsObj_test = bsObj.prettify()
-            # print(bsObj.prettify())
-            test = bsObj.find('cite', {'class': '_Rm'})
-            print(test)
+            # Get BeautifulSoup object
+            bsObj = BeautifulSoup(html_doc, "html5lib")
+
+            # Get all items in Google SEO results that match 'privateaser.com'
+            items = bsObj.find_all('div', {'class': 'g'})
+            tags = ['<cite>', '</cite>', '<b>', '</b>']
+            for index, item in enumerate(items):
+                position = index + 1
+                link_raw = item.find('cite')
+                link = str(item.find('cite'))
+                link.replace('<cite>', '')
+                for tag in tags:
+                    link = link.replace(tag, '')
+                if(link.find('privateaser.com') != -1):
+                    itemList.append(
+                        {
+                            "keywords": keywords,
+                            "position": position,
+                            "link": link,
+                        }
+                    )
+
+                itemListDebug.append(
+                    {
+                        "keywords": keywords,
+                        "link_raw": link_raw,
+                        "link": link,
+                        "position": position,
+                    }
+                )
 
     return render_template(
         'index.html',
-        form=form, error=error, bsObj_test=bsObj_test)
+        form=form, error=error, itemList=itemList, itemListDebug=itemListDebug)

@@ -66,7 +66,7 @@
             </form>
         </div>
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
-            <h2>Résultats (static)</h2>
+            <h2>Résultats</h2>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -77,37 +77,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Réservation bar paris</td>
-                            <td>https://www.privateaser.com</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>où fêter son anniversaire</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                        </tr>
-                        <tr>
-                            <td>macbridge's pub</td>
-                            <td>https://www.privateaser.com/lieu/91-mc-bridge</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td>le matignon club</td>
-                            <td>https://www.privateaser.com/lieu/927-le-matignon-club</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td>l'héclice bar</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                        </tr>
+                        {% for item in itemList %}
+                            <tr>
+                                <td>{{ item.keywords }}</td>
+                                <td>{% if item.link != 'None' %}{{ item.link }}{% else %}N/A{% endif %}</td>
+                                <td>{{ item.position }}</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{ bsObj_test }}
+            <h2>Debug</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mots-clés</th>
+                            <th>Link with tags</th>
+                            <th>URL</th>
+                            <th>Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in itemListDebug %}
+                            <tr>
+                                <td>{{ item.keywords }}</td>
+                                <td>{{ item.link_raw }}</td>
+                                <td>{{ item.link }}</td>
+                                <td>{{ item.position }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- jQuery -->
